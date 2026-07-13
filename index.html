@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>لعبة البلف — لوحة التحكم</title>
+  <meta name="description"
+    content="لوحة تحكم المشرف للعبة البلف — إدارة الفئات والأسئلة ومتابعة النشاط الحي ومقاييس النمو والتفاعل." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- ─── تسجيل الدخول ───────────────────────────────────────────────────── -->
+  <div id="login-screen" class="login-screen">
+    <form id="login-form" class="login-card">
+      <div class="login-logo">
+        <div class="login-logo-icon">🎲</div>
+        <h1>لعبة البلف</h1>
+      </div>
+      <p class="login-subtitle">لوحة التحكم · سجّل دخولك للمتابعة</p>
+      <label>
+        البريد الإلكتروني
+        <input type="email" id="login-email" required autocomplete="username" placeholder="you@example.com" />
+      </label>
+      <label>
+        كلمة المرور
+        <input type="password" id="login-password" required autocomplete="current-password" placeholder="••••••••" />
+      </label>
+      <button type="submit" id="login-button">تسجيل الدخول</button>
+      <div id="login-error" class="error-banner" hidden>
+        <span>⚠</span>
+        <span id="login-error-text"></span>
+      </div>
+    </form>
+  </div>
+
+  <!-- ─── الواجهة الرئيسية ───────────────────────────────────────────────── -->
+  <div id="app-shell" class="app-shell" hidden>
+
+    <!-- الشريط الجانبي -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <div class="sidebar-logo-icon">🎲</div>
+        <div class="sidebar-logo-text">
+          <span class="sidebar-logo-name">لعبة البلف</span>
+          <span class="sidebar-logo-sub">لوحة التحكم</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav" id="sidebar-nav">
+        <span class="nav-section-label">التحليلات</span>
+
+        <button class="nav-item" data-route="overview" id="nav-overview">
+          <span class="nav-item-icon">📊</span>
+          <span class="nav-item-label">نظرة عامة</span>
+        </button>
+
+        <button class="nav-item" data-route="leaderboard" id="nav-leaderboard">
+          <span class="nav-item-icon">🏆</span>
+          <span class="nav-item-label">المتصدرون</span>
+        </button>
+
+        <span class="nav-section-label">المحتوى</span>
+
+        <button class="nav-item" data-route="categories" id="nav-categories">
+          <span class="nav-item-icon">🗂️</span>
+          <span class="nav-item-label">الفئات</span>
+        </button>
+
+        <button class="nav-item" data-route="questions" id="nav-questions">
+          <span class="nav-item-icon">❓</span>
+          <span class="nav-item-label">الأسئلة</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button class="nav-item" id="logout-button">
+          <span class="nav-item-icon">🚪</span>
+          <span class="nav-item-label">تسجيل الخروج</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- المحتوى الرئيسي -->
+    <div class="main-content">
+
+      <!-- الشريط العلوي -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <span id="topbar-title" class="topbar-title">نظرة عامة</span>
+          <span id="topbar-live" class="live-dot" hidden title="بيانات مباشرة"></span>
+        </div>
+        <div class="topbar-right">
+          <button id="refresh-button" class="btn-secondary">↻ تحديث</button>
+        </div>
+      </header>
+
+      <!-- ── عرض: نظرة عامة ──────────────────────────────────────────────── -->
+      <section id="view-overview" class="view-panel">
+        <div id="overview-content"></div>
+      </section>
+
+      <!-- ── عرض: المتصدرون ─────────────────────────────────────────────── -->
+      <section id="view-leaderboard" class="view-panel">
+        <div class="page-header">
+          <div class="page-header-left">
+            <h2>المتصدرون</h2>
+            <p>أفضل اللاعبين مرتبين حسب الانتصارات والنقاط الكلية.</p>
+          </div>
+        </div>
+        <div class="filter-bar">
+          <div class="filter-group">
+            <span class="filter-icon">🔍</span>
+            <input type="text" id="leaderboard-search" placeholder="ابحث عن لاعب بالاسم..." />
+          </div>
+        </div>
+        <div class="table-card" id="leaderboard-content"></div>
+      </section>
+
+      <!-- ── عرض: الفئات ───────────────────────────────────────────────── -->
+      <section id="view-categories" class="view-panel">
+        <div class="section-header">
+          <div>
+            <h2>الفئات</h2>
+          </div>
+          <div class="page-header-actions">
+            <button id="add-category-button" class="btn-primary">+ إضافة فئة</button>
+          </div>
+        </div>
+        <div class="filter-bar">
+          <div class="filter-group">
+            <span class="filter-icon">🔍</span>
+            <input type="text" id="categories-search" placeholder="ابحث بالاسم أو المعرّف..." />
+          </div>
+          <div class="filter-group filter-group-select">
+            <span class="filter-icon">📁</span>
+            <select id="categories-filter-parent">
+              <option value="">جميع أنواع الفئات</option>
+              <option value="top">الفئات الرئيسية فقط</option>
+              <option value="sub">الفئات الفرعية فقط</option>
+            </select>
+          </div>
+        </div>
+        <div class="table-card" id="categories-content"></div>
+      </section>
+
+      <!-- ── عرض: الأسئلة ──────────────────────────────────────────────── -->
+      <section id="view-questions" class="view-panel">
+        <div class="section-header">
+          <div>
+            <h2>الأسئلة</h2>
+          </div>
+          <div class="page-header-actions">
+            <button id="add-question-button" class="btn-primary">+ إضافة سؤال</button>
+          </div>
+        </div>
+        <div class="filter-bar">
+          <div class="filter-group">
+            <span class="filter-icon">🔍</span>
+            <input type="text" id="questions-search" placeholder="ابحث بنص السؤال أو الإجابة..." />
+          </div>
+          <div class="filter-group filter-group-select">
+            <span class="filter-icon">🏷️</span>
+            <select id="questions-filter-category">
+              <option value="">جميع الفئات</option>
+            </select>
+          </div>
+        </div>
+        <div class="table-card" id="questions-content"></div>
+      </section>
+
+    </div><!-- /.main-content -->
+  </div><!-- /#app-shell -->
+
+  <!-- ─── نافذة الفئة ───────────────────────────────────────────────────── -->
+  <dialog id="category-dialog" class="dialog">
+    <div class="dialog-header">
+      <h3 id="category-dialog-title">إضافة فئة</h3>
+      <button class="dialog-close" data-close="category-dialog" title="إغلاق">✕</button>
+    </div>
+    <form id="category-form">
+      <label>
+        المعرّف <span class="hint">(قصير، أحرف صغيرة، بدون مسافات — لا يمكن تغييره لاحقاً)</span>
+        <input type="text" id="category-id" required />
+      </label>
+      <label>
+        الاسم <span class="hint">(يظهر في التطبيق)</span>
+        <input type="text" id="category-name" required />
+      </label>
+      <label>
+        الفئة الأم <span class="hint">(اختياري — اتركه فارغاً للفئة الرئيسية)</span>
+        <select id="category-parent">
+          <option value="">لا شيء (فئة رئيسية)</option>
+        </select>
+      </label>
+      <div id="category-error" class="inline-error" hidden>
+        <span>⚠</span><span id="category-error-text"></span>
+      </div>
+      <div class="dialog-actions">
+        <button type="button" class="btn-ghost" data-close="category-dialog">إلغاء</button>
+        <button type="submit" class="btn-primary">حفظ</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- ─── نافذة السؤال ──────────────────────────────────────────────────── -->
+  <dialog id="question-dialog" class="dialog">
+    <div class="dialog-header">
+      <h3 id="question-dialog-title">إضافة سؤال</h3>
+      <button class="dialog-close" data-close="question-dialog" title="إغلاق">✕</button>
+    </div>
+    <form id="question-form">
+      <input type="hidden" id="question-original-id" />
+      <label>
+        الفئة
+        <select id="question-category" required></select>
+      </label>
+      <label>
+        نص السؤال
+        <textarea id="question-text" required rows="3"></textarea>
+      </label>
+      <label>
+        الإجابة الصحيحة
+        <input type="text" id="question-answer" required />
+      </label>
+      <div id="question-error" class="inline-error" hidden>
+        <span>⚠</span><span id="question-error-text"></span>
+      </div>
+      <div class="dialog-actions">
+        <button type="button" class="btn-ghost" data-close="question-dialog">إلغاء</button>
+        <button type="submit" class="btn-primary">حفظ</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- ─── نافذة التأكيد ─────────────────────────────────────────────────── -->
+  <dialog id="confirm-dialog" class="dialog">
+    <div class="dialog-header">
+      <h3 id="confirm-dialog-title">تأكيد</h3>
+      <button class="dialog-close" id="confirm-close-btn" title="إغلاق">✕</button>
+    </div>
+    <div class="confirm-body">
+      <p class="confirm-message" id="confirm-dialog-message"></p>
+      <div class="dialog-actions">
+        <button type="button" class="btn-ghost" id="confirm-cancel-btn">إلغاء</button>
+        <button type="button" class="btn-primary" id="confirm-ok-btn"
+          style="background:var(--danger);box-shadow:none;">حذف</button>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>
