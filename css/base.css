@@ -1,0 +1,153 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* ─── Design Tokens ─────────────────────────────────────────────────────── */
+
+:root {
+  --primary:        #4f6ef7;
+  --primary-light:  rgba(79,110,247,.12);
+  --primary-glow:   rgba(79,110,247,.35);
+  --secondary:      #f59e0b;
+  --danger:         #ef4444;
+  --danger-light:   rgba(239,68,68,.1);
+  --success:        #22c55e;
+
+  --bg:             #f4f6fb;
+  --surface:        #ffffff;
+  --surface-2:      #f9fafc;
+  --border:         #e8eaf2;
+  --border-strong:  #d1d5de;
+
+  --text:           #0e1117;
+  --text-2:         #4b5263;
+  --text-3:         #9199ab;
+
+  --sidebar-w:      228px;
+  --topbar-h:       60px;
+  --radius:         14px;
+  --radius-sm:      8px;
+
+  --shadow-sm:      0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+  --shadow-md:      0 4px 16px rgba(0,0,0,.08), 0 1px 4px rgba(0,0,0,.04);
+  --shadow-lg:      0 12px 40px rgba(0,0,0,.13), 0 2px 8px rgba(0,0,0,.06);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:            #0b0d12;
+    --surface:       #12151e;
+    --surface-2:     #181c27;
+    --border:        #1e2235;
+    --border-strong: #2b3050;
+    --text:          #eef0f6;
+    --text-2:        #8b93a8;
+    --text-3:        #555e77;
+    --shadow-sm:     0 1px 3px rgba(0,0,0,.3);
+    --shadow-md:     0 4px 16px rgba(0,0,0,.4);
+    --shadow-lg:     0 12px 40px rgba(0,0,0,.5);
+  }
+}
+
+/* ─── Reset ──────────────────────────────────────────────────────────────── */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 { margin: 0; }
+p { margin: 0; }
+
+/* ─── Buttons ─────────────────────────────────────────────────────────────── */
+
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 9px 16px;
+  font-size: 13.5px;
+  font-weight: 600;
+  font-family: inherit;
+  transition: background .15s, color .15s, opacity .15s, transform .1s, box-shadow .15s;
+}
+
+button:active { transform: scale(.97); }
+
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+  box-shadow: 0 2px 8px var(--primary-glow);
+}
+.btn-primary:hover { opacity: .88; }
+
+.btn-secondary {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  color: var(--text-2);
+}
+.btn-secondary:hover {
+  border-color: var(--border-strong);
+  color: var(--text);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-3);
+  padding: 9px 12px;
+}
+.btn-ghost:hover {
+  background: var(--surface-2);
+  color: var(--text-2);
+}
+
+.btn-danger {
+  background: transparent;
+  color: var(--danger);
+  padding: 6px 10px;
+  font-size: 12.5px;
+}
+.btn-danger:hover {
+  background: var(--danger-light);
+}
+
+.btn-link {
+  background: transparent;
+  color: var(--primary);
+  padding: 6px 10px;
+  font-size: 12.5px;
+}
+.btn-link:hover {
+  background: var(--primary-light);
+}
+
+/* ─── Alert banners (shared by login form + dashboard dialogs) ──────────── */
+
+.error-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--danger-light);
+  border: 1px solid rgba(239,68,68,.25);
+  color: var(--danger);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  font-size: 13px;
+  margin-top: 12px;
+}
+
+.inline-error {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--danger-light);
+  border: 1px solid rgba(239,68,68,.25);
+  color: var(--danger);
+  border-radius: var(--radius-sm);
+  padding: 9px 12px;
+  font-size: 13px;
+  margin-top: 4px;
+}

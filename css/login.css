@@ -1,0 +1,105 @@
+/* ─── Login ──────────────────────────────────────────────────────────────── */
+
+.login-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -20%, rgba(79,110,247,.18) 0%, transparent 70%),
+    var(--bg);
+}
+
+.login-card {
+  width: 100%;
+  max-width: 380px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 40px 36px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  box-shadow: var(--shadow-lg);
+}
+
+.login-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.login-logo-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.login-logo h1 {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+
+.login-subtitle {
+  font-size: 13px;
+  color: var(--text-3);
+  margin-bottom: 32px;
+  margin-top: 2px;
+}
+
+.login-card label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-2);
+  margin-bottom: 16px;
+}
+
+.login-card input {
+  padding: 11px 14px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: 14px;
+  font-family: inherit;
+  transition: border-color .15s, box-shadow .15s;
+}
+
+.login-card input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.login-card button[type=submit] {
+  margin-top: 8px;
+  width: 100%;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: opacity .15s, transform .1s;
+  letter-spacing: .01em;
+}
+
+.login-card button[type=submit]:hover { opacity: .9; }
+.login-card button[type=submit]:active { transform: scale(.98); }
+.login-card button[type=submit]:disabled { opacity: .6; cursor: default; }

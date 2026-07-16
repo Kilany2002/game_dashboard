@@ -6,37 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>لعبة البلف — لوحة التحكم</title>
   <meta name="description"
-    content="لوحة تحكم المشرف للعبة البلف — إدارة الفئات والأسئلة ومتابعة النشاط الحي ومقاييس النمو والتفاعل." />
-  <link rel="stylesheet" href="style.css" />
+    content="لوحة تحكم المشرف للعبة البلف — إدارة الفئات والأسئلة والغرف والمستخدمين ومتابعة النشاط الحي ومقاييس النمو والتفاعل." />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
 </head>
 
 <body>
 
-  <!-- ─── تسجيل الدخول ───────────────────────────────────────────────────── -->
-  <div id="login-screen" class="login-screen">
-    <form id="login-form" class="login-card">
-      <div class="login-logo">
-        <div class="login-logo-icon">🎲</div>
-        <h1>لعبة البلف</h1>
-      </div>
-      <p class="login-subtitle">لوحة التحكم · سجّل دخولك للمتابعة</p>
-      <label>
-        البريد الإلكتروني
-        <input type="email" id="login-email" required autocomplete="username" placeholder="you@example.com" />
-      </label>
-      <label>
-        كلمة المرور
-        <input type="password" id="login-password" required autocomplete="current-password" placeholder="••••••••" />
-      </label>
-      <button type="submit" id="login-button">تسجيل الدخول</button>
-      <div id="login-error" class="error-banner" hidden>
-        <span>⚠</span>
-        <span id="login-error-text"></span>
-      </div>
-    </form>
-  </div>
-
-  <!-- ─── الواجهة الرئيسية ───────────────────────────────────────────────── -->
   <div id="app-shell" class="app-shell" hidden>
 
     <!-- الشريط الجانبي -->
@@ -73,6 +49,18 @@
           <span class="nav-item-icon">❓</span>
           <span class="nav-item-label">الأسئلة</span>
         </button>
+
+        <span class="nav-section-label">اللاعبون</span>
+
+        <button class="nav-item" data-route="rooms" id="nav-rooms">
+          <span class="nav-item-icon">🚪</span>
+          <span class="nav-item-label">الغرف</span>
+        </button>
+
+        <button class="nav-item" data-route="users" id="nav-users">
+          <span class="nav-item-icon">👤</span>
+          <span class="nav-item-label">المستخدمون</span>
+        </button>
       </nav>
 
       <div class="sidebar-footer">
@@ -97,79 +85,13 @@
         </div>
       </header>
 
-      <!-- ── عرض: نظرة عامة ──────────────────────────────────────────────── -->
-      <section id="view-overview" class="view-panel">
-        <div id="overview-content"></div>
-      </section>
-
-      <!-- ── عرض: المتصدرون ─────────────────────────────────────────────── -->
-      <section id="view-leaderboard" class="view-panel">
-        <div class="page-header">
-          <div class="page-header-left">
-            <h2>المتصدرون</h2>
-            <p>أفضل اللاعبين مرتبين حسب الانتصارات والنقاط الكلية.</p>
-          </div>
-        </div>
-        <div class="filter-bar">
-          <div class="filter-group">
-            <span class="filter-icon">🔍</span>
-            <input type="text" id="leaderboard-search" placeholder="ابحث عن لاعب بالاسم..." />
-          </div>
-        </div>
-        <div class="table-card" id="leaderboard-content"></div>
-      </section>
-
-      <!-- ── عرض: الفئات ───────────────────────────────────────────────── -->
-      <section id="view-categories" class="view-panel">
-        <div class="section-header">
-          <div>
-            <h2>الفئات</h2>
-          </div>
-          <div class="page-header-actions">
-            <button id="add-category-button" class="btn-primary">+ إضافة فئة</button>
-          </div>
-        </div>
-        <div class="filter-bar">
-          <div class="filter-group">
-            <span class="filter-icon">🔍</span>
-            <input type="text" id="categories-search" placeholder="ابحث بالاسم أو المعرّف..." />
-          </div>
-          <div class="filter-group filter-group-select">
-            <span class="filter-icon">📁</span>
-            <select id="categories-filter-parent">
-              <option value="">جميع أنواع الفئات</option>
-              <option value="top">الفئات الرئيسية فقط</option>
-              <option value="sub">الفئات الفرعية فقط</option>
-            </select>
-          </div>
-        </div>
-        <div class="table-card" id="categories-content"></div>
-      </section>
-
-      <!-- ── عرض: الأسئلة ──────────────────────────────────────────────── -->
-      <section id="view-questions" class="view-panel">
-        <div class="section-header">
-          <div>
-            <h2>الأسئلة</h2>
-          </div>
-          <div class="page-header-actions">
-            <button id="add-question-button" class="btn-primary">+ إضافة سؤال</button>
-          </div>
-        </div>
-        <div class="filter-bar">
-          <div class="filter-group">
-            <span class="filter-icon">🔍</span>
-            <input type="text" id="questions-search" placeholder="ابحث بنص السؤال أو الإجابة..." />
-          </div>
-          <div class="filter-group filter-group-select">
-            <span class="filter-icon">🏷️</span>
-            <select id="questions-filter-category">
-              <option value="">جميع الفئات</option>
-            </select>
-          </div>
-        </div>
-        <div class="table-card" id="questions-content"></div>
-      </section>
+      <!-- كل عرض يُبنى بالكامل من وحدة JS الخاصة به (js/views/*.js) -->
+      <section id="view-overview" class="view-panel"></section>
+      <section id="view-leaderboard" class="view-panel"></section>
+      <section id="view-categories" class="view-panel"></section>
+      <section id="view-questions" class="view-panel"></section>
+      <section id="view-rooms" class="view-panel"></section>
+      <section id="view-users" class="view-panel"></section>
 
     </div><!-- /.main-content -->
   </div><!-- /#app-shell -->
@@ -253,8 +175,29 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
-  <script src="config.js"></script>
-  <script src="app.js"></script>
+
+  <script src="js/config.js"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/events.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth-guard.js"></script>
+  <script src="js/router.js"></script>
+
+  <script src="js/components/list-view.js"></script>
+  <script src="js/components/confirm-dialog.js"></script>
+  <script src="js/components/category-dialog.js"></script>
+  <script src="js/components/question-dialog.js"></script>
+
+  <script src="js/views/overview.js"></script>
+  <script src="js/views/leaderboard.js"></script>
+  <script src="js/views/categories.js"></script>
+  <script src="js/views/questions.js"></script>
+  <script src="js/views/rooms.js"></script>
+  <script src="js/views/users.js"></script>
+
+  <script src="js/main.js"></script>
 </body>
 
 </html>
